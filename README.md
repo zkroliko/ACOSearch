@@ -15,8 +15,8 @@ The algorithm has proven effective, however the Python implemenation is ineffiec
 
 ## Organization
 
-Directories are a mess.
+Directories with code are a mess.
 
 ## Credits
 
-Designed and implemented as a part of curriculum at AGH Kraków by a student team.
+Designed and implemented as a part of curriculum at AGH Kraków by undergrad student team.
