@@ -13,6 +13,10 @@ The algorithm has proven effective, however the Python implemenation is ineffiec
 
 ![effect](https://cloud.githubusercontent.com/assets/8882153/22370060/b44a5efa-e48f-11e6-9469-2ae748b7f8c8.JPG)
 
+## Organization
+
+Directories are a mess.
+
 ## Credits
 
 Designed and implemented as a part of curriculum at AGH Kraków by a student team.
