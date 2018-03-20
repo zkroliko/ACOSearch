@@ -1,5 +1,3 @@
-import numpy as np
-
 from acoAlgorithm.TwoCoordinate import TwoCoordinate
 from acoAlgorithm.utils.FloatUtils import is_close
 

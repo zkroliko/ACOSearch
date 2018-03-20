@@ -1,6 +1,7 @@
 import sys
 import time
 
+from acoAlgorithm.LightMap import LightMap
 from acoAlgorithm.PheromoneMap import PheromoneMap
 from acoAlgorithm.Walker import Walker
 from acoAlgorithm.tools.Printer import Printer
@@ -17,9 +18,9 @@ class Simulation:
 
     # Algorithm specific
 
-    def __init__(self):
-        self.scenario = self.DEFAULT_SCENARIO
-        self.n_iterations = self.DEFAULT_N_ITERATIONS
+    def __init__(self,scenario=DEFAULT_SCENARIO,n_iterations=DEFAULT_N_ITERATIONS):
+        self.scenario = scenario
+        self.n_iterations = n_iterations
         self.iteration = 0
         self.result_file = self.DEFAULT_RESULTS_FILE
         self.path_file = self.DEFAULT_OPTIMIZED_FILE
@@ -34,9 +35,13 @@ class Simulation:
     def start(self, app):
         # For saving results
         with open(self.result_file, 'w') as result_file:
+            print("Building the shadow map")
+            # shadow_map = {}
+            shadow_map = LightMap.build_shadow_map(self.scenario.area())
+            print("Shadow map built")
             for iteration in range(self.n_iterations):
                 start = time.time()
-                w = Walker(self.scenario.area(), self.scenario.start(), self.pheromone_map)
+                w = Walker(self.scenario.area(), self.scenario.start(), self.pheromone_map,shadow_map)
                 while not w.finished():
                     w.step()
                 self.pheromone_map.set_update_weight(10000.0 / pow(w.path.__len__(), 2))

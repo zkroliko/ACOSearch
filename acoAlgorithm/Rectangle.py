@@ -98,8 +98,8 @@ class Rectangle():
 
     # Returns a point which is the middle of the rectangle
     def middle(self):
-        mid_x = (self.start.x + self.end.x) / 2
-        mid_y = (self.start.y + self.end.y) / 2
+        mid_x = (self.start.x + self.end.x) // 2
+        mid_y = (self.start.y + self.end.y) // 2
         # Parity of dimensions, sorry for unclarity, the best way
         x_adjust = (self.width() + 1) % 2
         y_adjust = (self.width() + 1) % 2

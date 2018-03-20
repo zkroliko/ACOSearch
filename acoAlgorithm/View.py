@@ -17,54 +17,21 @@ class ViewGenerator():
 
     NUMBER_OF_STRIPES = 1
 
-    def __init__(self, area, light_map=None):
+    def __init__(self, area, shadow_map=None):
         self.visited = {}
         self.area = area
-        if light_map:
-            self.lm = light_map
-        else:
-            self.lm = LightMap(area)
-            # For triangle raytracing
-            # self.corner_points = []
-            # self.setup_corners()
+        self.lm = LightMap(area, shadow_map)
+        # For triangle raytracing
+        # self.corner_points = []
+        # self.setup_corners()
 
     # Adds possible moves to light map
-    def see_close(self, moves):
+    def react_to_new_place(self, moves):
         # The place in which the walker currently is
-        self.lm.check((moves[0].source.x, moves[0].source.y))
+        self.lm.look_around_at((moves[0].source.x, moves[0].source.y))
         # The rest -> if you can move there, you can see it
-        for move in moves:
-            self.lm.check((move.target.x, move.target.y))
-
-    def shine_from(self, source):
-        if source in self.visited:
-            return self.visited[source]
-        else:
-            before = self.lm.how_many_left()
-            # Now the real execution
-            # First let's try using more efficient method
-            # self.shine_from_triangles(source)
-            # Now for the fields that are left
-            # stripes_number = min(self.area.main.width(), self.NUMBER_OF_STRIPES)
-            # width = self.area.width() / stripes_number
-            # jobs = []
-            # for i in range(0, stripes_number):
-            #     p = multiprocessing.Process(target=self.shine_onto_stripe,
-            #                                 args=(source, i * width, (i + 1) * width - 1))
-            #     jobs.append(p)
-            #
-            # for p in jobs:
-            #     p.start()
-            #
-            # for p in jobs:
-            #     p.join()
-
-            for i in range(self.area.main.start.x, self.area.main.end.y + 1):
-                for j in range(self.area.main.start.y, self.area.main.end.y + 1):
-                    self.__shine_with_rectangle(source, i, j)
-            difference = before - self.lm.how_many_left()
-            self.visited[source] = True
-            return difference
+        # for move in moves:
+        #     self.lm.check((move.target.x, move.target.y))
 
     def shine_onto_stripe(self, source, start, end):
         for i in range(start, end + 1):
@@ -74,7 +41,7 @@ class ViewGenerator():
     def __shine_directly(self, source, x, y):
         if self.lm.remains_to_be_checked((x, y)):
             if Ray(source, Point(x, y), area=self.area).valid():
-                self.lm.check((x, y))
+                self.lm.look_around_at((x, y))
 
     def setup_corners(self):
         # Make points from corners
@@ -97,10 +64,10 @@ class ViewGenerator():
                     if ray.collides(rectangle):
                         return
                 # Checked all the rectangles that might coincide and none is present
-                self.lm.check((x, y))
+                self.lm.look_around_at((x, y))
             else:
                 for raw_field in shell.all_fields_raw():
-                    self.lm.check(raw_field)
+                    self.lm.look_around_at(raw_field)
 
     def shine_from_triangles(self, source):
         # Make points from corners
@@ -130,7 +97,7 @@ class ViewGenerator():
     def add_raw_fields(self, fields):
         for entry in fields:
             if 0 <= entry[0] <= self.area.main.end.x and 0 <= entry[1] <= self.area.main.end.y:
-                self.lm.check((entry[0], entry[1]))
+                self.lm.look_around_at((entry[0], entry[1]))
 
     @staticmethod
     def sorted_to_origin(points, origin):

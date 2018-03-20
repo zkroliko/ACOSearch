@@ -105,14 +105,10 @@ class AcoApp(App):
     path_length = NumericProperty(0)
 
     def generate(self):
-        simulation = Simulation()
-        simulation.scenario = self.scenarios[self.scenario]
-        simulation.n_iterations = self.iterations
+        simulation = Simulation(self.scenarios[self.scenario],self.iterations)
         self.fields = simulation.get_fields()
         self.__generate_graphics()
         return simulation
-
-
 
     def simulate(self):
         simulation = self.generate()

@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 from acoAlgorithm.Corner import Corner
 from acoAlgorithm.Field import Field

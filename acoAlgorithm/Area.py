@@ -67,7 +67,7 @@ class Area:
         if isinstance(item, Rectangle):
             # Checking if it fits in our area
             # this will be done recursively
-            if self.main & item is not None:
+            if self.main & item:
                 if self.is_subindexed():
                     for child in self.children:
                         child += item
@@ -85,8 +85,8 @@ class Area:
             # Checking if it fits in our area
             # this will be done recursively
             # this is ensured by iadd method
-            if other.end < Field(self.width, self.height):  # TODO: Different than iadd
-                if self.rectangles.__contains__(other):
+            if other & self.main:  # TODO: Different than iadd
+                if other in self.rectangles:
                     self.rectangles.remove(other)
                 if self.is_subindexed():
                     for child in self.children:
@@ -131,7 +131,7 @@ class Area:
         result = set()
         if self.is_subindexed():
             for child in self.children:
-                result.union_update(child.rectangles_in_contact(target))
+                result.update(child.rectangles_in_contact(target))
         else:
             for r in self.rectangles:
                 if target.has_intersection(r):
@@ -163,7 +163,7 @@ class Area:
         all = set()
         if self.is_subindexed():
             for child in self.children:
-                all.union_update((child.all_rectangles()))
+                all.update((child.all_rectangles()))
         else:
             for r in self.rectangles:
                 all.add(r)

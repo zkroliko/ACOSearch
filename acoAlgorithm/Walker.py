@@ -12,18 +12,18 @@ class Walker:
     # Moves we can make
     MOVES = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-    def __init__(self, area, start, pheromone_map):
+    def __init__(self, area, start, pheromone_map, shadow_map=None):
         self.area = area
         self.pherm_map = pheromone_map
         self.anti_loop_map = AntiLoopMap()
         self.checker = Walker.StepChecker(area)
         self.decider = Walker.DecisionMaker(self, pheromone_map, self.anti_loop_map)
-        self.view = ViewGenerator(area, LightMap(area))
+        self.view = ViewGenerator(area, shadow_map)
         # Setting the start position
         if area.is_field_accessible(start):
             self.position = start
             self.path = [start]
-            self.view.shine_from(self.position)
+            # self.view.shine_from(self.position)
         else:
             raise Exception("Cannot place walker on the given field")
 
@@ -44,7 +44,7 @@ class Walker:
         if possible.__len__() == 0:
             raise Exception("Walker cannot make any moves from field %s" % (self.position))
         # We can initially update out light map based on possible moves - but a max of 9
-        self.view.see_close(possible)
+        self.view.react_to_new_place(possible)
         # Asking the decision maker for move
         next_move = self.decider.decide(possible)
         # Adding the transition to pheromone map
@@ -60,7 +60,7 @@ class Walker:
         if self.can_step(target):
             self.position = target
             self.path.append(self.position)
-            self.view.shine_from(self.position)
+            # self.view.shine_from(self.position)
         else:
             raise Exception("Cannot step on the given field")
 
@@ -76,8 +76,7 @@ class Walker:
             self.anti_loop = anti_loop
 
         def decide(self, possible_moves):
-            pheromone_levels = map(lambda transition: self.pheromone_map.pheromone_at(transition),
-                                   possible_moves)
+            pheromone_levels = [self.pheromone_map.pheromone_at(move) for move in possible_moves]
             total_pheromone = sum(pheromone_levels)
 
             past_moves = map(lambda transition: self.anti_loop.transition_count(transition), possible_moves)
@@ -91,7 +90,7 @@ class Walker:
             last_level = 0
 
             # Determining the categorisation levels
-            for move in possible_moves:
+            for idx, move in enumerate(possible_moves):
                 # Calculating the weight
                 transitions_to_possibility = self.anti_loop.transition_count(move)
                 if transitions_to_possibility == 0:
@@ -104,7 +103,7 @@ class Walker:
                 if total_pheromone == 0:
                     probability = float(1) / len(possible_moves)
                 else:
-                    probability = self.pheromone_map.pheromone_at(move) / float(total_pheromone)
+                    probability = pheromone_levels[idx] / float(total_pheromone)
                 # Adding weight to probability
                 probability *= anti_loop_weight
                 levels[(last_level, last_level + probability)] = move
