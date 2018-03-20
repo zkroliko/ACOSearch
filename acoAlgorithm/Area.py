@@ -1,5 +1,3 @@
-from sets import Set
-
 from acoAlgorithm.Rectangle import Rectangle
 from acoAlgorithm.Field import Field, FieldType
 
@@ -87,7 +85,7 @@ class Area:
             # Checking if it fits in our area
             # this will be done recursively
             # this is ensured by iadd method
-            if other.end < Field(self.width, self.height):  # TODO: Inaczej sprawdzane niz w iadd
+            if other.end < Field(self.width, self.height):  # TODO: Different than iadd
                 if self.rectangles.__contains__(other):
                     self.rectangles.remove(other)
                 if self.is_subindexed():
@@ -130,7 +128,7 @@ class Area:
 
     # Gets all rectangles coinciding with a given rectangle
     def rectangles_in_contact(self, target):
-        result = Set()
+        result = set()
         if self.is_subindexed():
             for child in self.children:
                 result.union_update(child.rectangles_in_contact(target))
@@ -162,7 +160,7 @@ class Area:
 
     # Returns all unique rectangles in the area
     def all_rectangles(self):
-        all = Set()
+        all = set()
         if self.is_subindexed():
             for child in self.children:
                 all.union_update((child.all_rectangles()))

@@ -111,10 +111,10 @@ class Walker:
                 last_level += probability
 
             # Now we will determine the max categorization level
-            max_level_bound = max(map(lambda interval: interval[1], levels.iterkeys()))
+            max_level_bound = max(map(lambda interval: interval[1], levels.keys()))
             # Scaling the sample to max bound
             random_sample *= max_level_bound
-            for interval, move in levels.iteritems():
+            for interval, move in levels.items():
                 if interval[0] <= random_sample < interval[1]:
                     return move
 

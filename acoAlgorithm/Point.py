@@ -20,7 +20,7 @@ class Point(TwoCoordinate):
 
     @staticmethod
     def corner_to_point(corner):
-        return Point(corner.x + corner.corner_type[0], corner.y + corner.corner_type[1])
+        return Point(corner.x + corner.corner_type.value[0], corner.y + corner.corner_type.value[1])
 
     def __init__(self, x, y):
         TwoCoordinate.__init__(self, x, y)

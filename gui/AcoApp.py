@@ -1,7 +1,8 @@
 import sys
 import time
-import thread
+from threading import Thread
 
+import _thread
 import kivy
 from kivy.app import App
 from kivy.core.window import Window
@@ -20,7 +21,7 @@ from examples.Scenario2 import Scenario2
 from examples.Scenario3 import Scenario3
 from examples.Scenario4 import Scenario4
 
-kivy.require('1.9.1')  # replace with your current kivy version !
+kivy.require('1.10.0')  # replace with your current kivy version !
 
 window_size = Window.size
 settings_height = 40
@@ -130,7 +131,7 @@ class AcoApp(App):
             self.path_length = length
 
     def run_simulation(self):
-        thread.start_new_thread(self.simulate, ())
+        _thread.start_new_thread(self.simulate, ())
 
 
     def __generate_graphics(self):

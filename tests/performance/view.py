@@ -24,7 +24,7 @@ for k in range(1):
 
     end = time.clock() - start
 
-    print end
+    print(end)
 
 
 

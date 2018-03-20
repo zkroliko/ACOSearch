@@ -32,14 +32,14 @@ class PheromoneMap:
             return 0
 
     def apply_update(self):
-        for key, value in self.update.iteritems():
+        for key, value in self.update.items():
             self.__update_pheromone_at(key, value)
         # Deleting the entries in self.update
         self.update.clear()
         self.__evaporate()
 
     def __evaporate(self):
-        for transition, value in self.pheromone.iteritems():
+        for transition, value in self.pheromone.items():
             self.pheromone[transition] *= self.VAPORISATION_COEFFICIENT
 
     def __update_pheromone_at(self, transition, value):

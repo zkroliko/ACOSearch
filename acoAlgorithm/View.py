@@ -4,7 +4,7 @@ from multiprocessing.pool import Pool
 import multiprocessing
 import numpy as np
 
-from Point import Point
+from acoAlgorithm.Point import Point
 from acoAlgorithm.LightMap import LightMap
 from acoAlgorithm.Ray import Ray
 from acoAlgorithm.utils.TriangleArea import triangle_area
@@ -70,7 +70,6 @@ class ViewGenerator():
         for i in range(start, end + 1):
             for j in range(self.area.main.start.y, self.area.main.end.y + 1):
                 self.__shine_directly(source, i, j)
-        print "dupa"
 
     def __shine_directly(self, source, x, y):
         if self.lm.remains_to_be_checked((x, y)):
