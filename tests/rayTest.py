@@ -1,6 +1,6 @@
 import unittest
 
-from mock import MagicMock
+from unittest.mock import MagicMock
 
 from acoAlgorithm.Area import Area
 from acoAlgorithm.Field import Field
@@ -56,7 +56,7 @@ class TestRay(unittest.TestCase):
             Rectangle(Field(0, 6), Field(8, 8)): True
         }
 
-        for rectangle, result in test_cases.iteritems():
+        for rectangle, result in test_cases.items():
             self.assertEqual(ray.collides(rectangle), result)
 
     def test_valid(self):
@@ -97,7 +97,7 @@ class TestRay(unittest.TestCase):
             Point(5, 2): False,
         }
 
-        for target, expected in test_cases.iteritems():
+        for target, expected in test_cases.items():
             ray = Ray(origin, target, area=a)
             self.assertEqual(ray.valid(), expected)
 
@@ -139,7 +139,7 @@ class TestRay(unittest.TestCase):
             Point(5, 2): False,
         }
 
-        for target, expected in test_cases.iteritems():
+        for target, expected in test_cases.items():
             ray = Ray(origin, target, area=a)
             self.assertEqual(ray.valid(), expected)
 

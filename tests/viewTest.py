@@ -1,5 +1,4 @@
 import itertools
-from sets import Set
 
 from acoAlgorithm.Area import Area
 from acoAlgorithm.Rectangle import Rectangle
@@ -74,7 +73,7 @@ class TestView(unittest.TestCase):
         self.assertEqual(v.lm.how_many_left(), 48)
         v.shine_from(Point(4, 4))
 
-        self.assertEqual(v.lm.how_many_left(), 33)
+        self.assertEqual(v.lm.how_many_left(), 17)
 
     # def test_shine_from_triangles(self):
     #     a = Scenario1.area()

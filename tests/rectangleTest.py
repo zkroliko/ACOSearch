@@ -111,7 +111,7 @@ class TestRectangle(unittest.TestCase):
             Point(8, 9): True
         }
 
-        for point, expected in test_cases.iteritems():
+        for point, expected in test_cases.items():
             self.assertEqual(point in rect, expected)
 
     def test_dimensions(self):
@@ -426,7 +426,7 @@ class TestRectangle(unittest.TestCase):
             (r3, r4): True
         }
 
-        for (first, second), value in test.iteritems():
+        for (first, second), value in test.items():
             self.assertEqual(first.is_joinable(second), value)
             self.assertEqual(second.is_joinable(first), value)
 
@@ -443,7 +443,7 @@ class TestRectangle(unittest.TestCase):
             (r4, rs): False,
         }
 
-        for (first, second), value in test_big.iteritems():
+        for (first, second), value in test_big.items():
             self.assertEqual(first.is_joinable(second), value)
             self.assertEqual(second.is_joinable(first), value)
 
@@ -459,7 +459,7 @@ class TestRectangle(unittest.TestCase):
             (r3, r4): Rectangle(Field(6, 3), Field(12, 5)),
         }
 
-        for (first, second), value in test.iteritems():
+        for (first, second), value in test.items():
             self.assertEqual(first.join(second), value)
             self.assertEqual(first.join(second), value)
 
@@ -494,7 +494,7 @@ class TestRectangle(unittest.TestCase):
             Rectangle(Field(2, 2), Field(4, 4)): Rectangle(Point(1.5, 1.5), Point(4.5, 4.5))
         }
 
-        for case, expected in test_cases.iteritems():
+        for case, expected in test_cases.items():
             self.assertEqual(case.corner_shell(),expected)
 
 

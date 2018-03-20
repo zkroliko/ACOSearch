@@ -26,7 +26,7 @@ class TestPoint(unittest.TestCase):
             Point(0, 0): np.pi*5/4,
             Point(10, 0): -np.pi*1/4,
         }
-        for value, result in test_cases.iteritems():
+        for value, result in test_cases.items():
             value.set_origin(origin)
             self.assertAlmostEqual(value.angle, result, 8)
 

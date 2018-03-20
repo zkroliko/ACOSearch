@@ -189,16 +189,16 @@ class TestField(unittest.TestCase):
         for c in r.corners():
             if r.top_right == c:
                 self.assertEqual(c.corner_type, CornerType.top_right)
-                self.assertEqual(c.corner_type, (0.5, 0.5))
+                self.assertEqual(c.corner_type.value, (0.5, 0.5))
             if r.top_left == c:
                 self.assertEqual(c.corner_type, CornerType.top_left)
-                self.assertEqual(c.corner_type, (-0.5, 0.5))
+                self.assertEqual(c.corner_type.value, (-0.5, 0.5))
             if r.bottom_right == c:
                 self.assertEqual(c.corner_type, CornerType.bottom_right)
-                self.assertEqual(c.corner_type, (0.5, -0.5))
+                self.assertEqual(c.corner_type.value, (0.5, -0.5))
             if r.bottom_left == c:
                 self.assertEqual(c.corner_type, CornerType.bottom_left)
-                self.assertEqual(c.corner_type, (-0.5, -0.5))
+                self.assertEqual(c.corner_type.value, (-0.5, -0.5))
 
 
 

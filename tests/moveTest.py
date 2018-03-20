@@ -38,7 +38,7 @@ class TestMove(unittest.TestCase):
             (2, 4): False
         }
 
-        for (x, y), val in positions.iteritems():
+        for (x, y), val in positions.items():
             self.assertEqual(Move(Field(3, 3), Field(x, y)).valid(a), val)
 
     def test_valid2(self):
@@ -55,5 +55,5 @@ class TestMove(unittest.TestCase):
             (3, 5): True
         }
 
-        for (x, y), val in positions.iteritems():
+        for (x, y), val in positions.items():
             self.assertEqual(Move(Field(4, 4), Field(x, y)).valid(a), val)

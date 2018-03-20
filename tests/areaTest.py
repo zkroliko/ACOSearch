@@ -1,5 +1,3 @@
-from sets import Set
-
 import unittest
 
 from acoAlgorithm.Area import Area
@@ -83,7 +81,7 @@ class TestArea(unittest.TestCase):
         ]
         a += rectangles
         # Check
-        self.assertEqual(Set(rectangles),a.all_rectangles())
+        self.assertEqual(set(rectangles),a.all_rectangles())
 
     def test_add_coinciding(self):
         a = Area(Rectangle(Field(0, 0), Field(15, 15)), 2)
@@ -102,47 +100,47 @@ class TestArea(unittest.TestCase):
     def test_remove(self):
         a = Area(Rectangle(Field(0, 0), Field(7, 7)), 1)
         r = Rectangle(Field(0, 0), Field(4, 4))
-        self.assertFalse(a.rectangles.__contains__(r))
+        self.assertFalse(r in a.rectangles)
         a += r
-        self.assertTrue(a.rectangles.__contains__(r))
+        self.assertTrue(r in a.rectangles)
         a -= r
-        self.assertFalse(a.rectangles.__contains__(r))
+        self.assertFalse(r in a.rectangles)
 
     def test_remove2(self):
         a = Area(Rectangle(Field(0, 0), Field(15, 15)), 2)
         r = Rectangle(Field(0, 0), Field(6, 6))
-        self.assertFalse(a.bottom_left.rectangles.__contains__(r))
+        self.assertFalse(r in a.bottom_left.rectangles)
         a += r
-        self.assertTrue(a.bottom_left.rectangles.__contains__(r))
+        self.assertTrue(r in a.bottom_left.rectangles)
         a -= r
-        self.assertFalse(a.bottom_left.rectangles.__contains__(r))
+        self.assertFalse(r in a.bottom_left.rectangles)
 
     def test_remove3(self):
         a = Area(Rectangle(Field(0, 0), Field(15, 15)), 3)
         r = Rectangle(Field(8, 10), Field(10, 11))
-        self.assertFalse(a.top_right.bottom_left.rectangles.__contains__(r))
+        self.assertFalse(r in a.top_right.bottom_left.rectangles)
         a += r
-        self.assertTrue(a.top_right.bottom_left.rectangles.__contains__(r))
+        self.assertTrue(r in a.top_right.bottom_left.rectangles)
         a -= r
-        self.assertFalse(a.top_right.bottom_left.rectangles.__contains__(r))
+        self.assertFalse(r in a.top_right.bottom_left.rectangles)
 
     def test_remove_multiple(self):
         a = Area(Rectangle(Field(0, 0), Field(15, 15)), 2)
         r = Rectangle(Field(6, 6), Field(10, 10))
-        self.assertFalse(a.bottom_left.rectangles.__contains__(r))
-        self.assertFalse(a.bottom_right.rectangles.__contains__(r))
-        self.assertFalse(a.top_left.rectangles.__contains__(r))
-        self.assertFalse(a.top_right.rectangles.__contains__(r))
+        self.assertFalse(r in a.bottom_left.rectangles)
+        self.assertFalse(r in a.bottom_right.rectangles)
+        self.assertFalse(r in a.top_left.rectangles)
+        self.assertFalse(r in a.top_right.rectangles)
         a += r
-        self.assertTrue(a.bottom_left.rectangles.__contains__(r))
-        self.assertTrue(a.bottom_right.rectangles.__contains__(r))
-        self.assertTrue(a.top_left.rectangles.__contains__(r))
-        self.assertTrue(a.top_right.rectangles.__contains__(r))
+        self.assertTrue(r in a.bottom_left.rectangles)
+        self.assertTrue(r in a.bottom_right.rectangles)
+        self.assertTrue(r in a.top_left.rectangles)
+        self.assertTrue(r in a.top_right.rectangles)
         a -= r
-        self.assertFalse(a.bottom_left.rectangles.__contains__(r))
-        self.assertFalse(a.bottom_right.rectangles.__contains__(r))
-        self.assertFalse(a.top_left.rectangles.__contains__(r))
-        self.assertFalse(a.top_right.rectangles.__contains__(r))
+        self.assertFalse(r in a.bottom_left.rectangles)
+        self.assertFalse(r in a.bottom_right.rectangles)
+        self.assertFalse(r in a.top_left.rectangles)
+        self.assertFalse(r in a.top_right.rectangles)
 
     def test_rectangles_in_contact(self):
         a = Area(Rectangle(Field(0, 0), Field(31, 31)), 2)
@@ -158,7 +156,7 @@ class TestArea(unittest.TestCase):
 
     def test_all_rectangles(self):
         a = Area(Rectangle(Field(0, 0), Field(127, 127)), 4)
-        original = Set()
+        original = set()
         for i in range(0, 100):
             rect = Rectangle(Field(i, i), Field(i, i))
             original.add(rect)
@@ -168,7 +166,7 @@ class TestArea(unittest.TestCase):
 
     def test_all_rectangles_complex(self):
         a = Area(Rectangle(Field(0, 0), Field(511, 511)), 4)
-        original = Set()
+        original = set()
         for i in range(1, 20):
             for j in range(1, 20):
                 rect = (Rectangle(Field(i * 6, j * 6), Field(i * 6 + 2, j * 6 + 2)))

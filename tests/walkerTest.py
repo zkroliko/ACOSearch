@@ -41,7 +41,7 @@ class TestWalker(unittest.TestCase):
             (2, 4): False
         }
 
-        for (x, y), val in positions.iteritems():
+        for (x, y), val in positions.items():
             self.assertEqual(w.can_step(Field(x, y)), val)
 
         w.change_position(Field(4, 4))
@@ -58,7 +58,7 @@ class TestWalker(unittest.TestCase):
             (3, 5): True
         }
 
-        for (x, y), val in positions.iteritems():
+        for (x, y), val in positions.items():
             self.assertEqual(w.can_step(Field(x, y)), val)
 
     def test_complete(self):
