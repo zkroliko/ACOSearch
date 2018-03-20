@@ -17,7 +17,7 @@ The algorithm has proven effective, however the Python implemenation is ineffiec
 
 ## Organization
 
-Directories with code are a mess.
+Divided into front-end, back-end, tests and scernarios (both Python scripts and text-based).
 
 ## Credits
 
