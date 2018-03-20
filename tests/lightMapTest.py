@@ -48,7 +48,7 @@ class TestPoint(unittest.TestCase):
                 if a.rectangle_of(i, j) is None or a.rectangle_of(i, j).type == FieldType.empty:
                     # Checking field in lm
                     if not lm.is_checked((i, j)):
-                        self.assertTrue(lm.check((i, j)))
+                        self.assertTrue(lm.look_around_at((i, j)))
                     self.assertTrue(lm.is_checked((i, j)))
 
     def test_remains_to_be_checked(self):
@@ -73,7 +73,7 @@ class TestPoint(unittest.TestCase):
                 if a.rectangle_of(i, j) is None or a.rectangle_of(i, j).type == FieldType.empty:
                     # Checking field in lm
                     left -= 1
-                    lm.check((i, j))
+                    lm.look_around_at((i, j))
                     self.assertLessEqual(lm.how_many_left(), left)
 
     def test_finished(self):
@@ -86,6 +86,6 @@ class TestPoint(unittest.TestCase):
             for j in range(a.main.start.y, a.main.end.y + 1):
                 if a.rectangle_of(i, j) is None or a.rectangle_of(i, j).type == FieldType.empty:
                     # Checking field in lm
-                    lm.check((i, j))
+                    lm.look_around_at((i, j))
 
         self.assertTrue(lm.finished())
